@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+.light{--bg-base:#F4FAF6;--g1:#F6FBF8;--g2:#EEF7F1;--g3:#E3F1E9;--glass:rgba(255,255,255,0.28);--ghi:rgba(255,255,255,0.80);--sheen:rgba(255,255,255,0.38);--accent:#5E8C72;--accentsoft:#A8C9B5;--onacc:#FFFFFF;--tp:#22302A;--ts:#5A6B62;--tt:#8A9890;--gshadow:0 10px 34px rgba(94,140,114,0.10);--blur:50px;--blobA:rgba(168,201,181,0.5);--blobB:rgba(200,230,212,0.6);--blobC:rgba(255,255,255,0.7);--bgtop:rgba(255,255,255,0.95);--bgbot:rgba(255,255,255,0.50);--bw:1.5px;--glow-border:0 0 8px rgba(255,255,255,0.25);--reflet:inset 0 1px 1.5px rgba(255,255,255,0.60);--clight:rgba(88,178,130,0.52);--emphbg:rgba(168,201,181,0.22);--warn:#A0713A;--warnbg:rgba(201,154,91,0.10);--warnborder:rgba(201,154,91,0.28);--divider:rgba(94,140,114,0.12);--sheetbg:#F2F8F4;--inputbg:rgba(94,140,114,0.08);--sheet-bg:rgba(238,248,242,0.84);--sheet-border:rgba(255,255,255,0.86);--sheet-shadow:0 -6px 40px rgba(94,140,114,0.14);--row-bg:rgba(255,255,255,0.62);--row-border:rgba(255,255,255,0.82);--dialog-bg:rgba(248,253,250,0.97);--dialog-border:rgba(255,255,255,0.90)}
+.dark{--bg-base:#070C09;--g1:#090F0B;--g2:#0C1611;--g3:#101F17;--glass:rgba(46,66,55,0.32);--ghi:rgba(205,255,224,0.55);--sheen:rgba(200,245,222,0.18);--accent:#9CC4AC;--accentsoft:#3A5446;--onacc:#0F1712;--tp:#EAF2ED;--ts:#A7B8AE;--tt:#6E7E75;--gshadow:0 32px 84px rgba(0,0,0,0.66);--blur:58px;--blobA:rgba(64,150,108,0.6);--blobB:rgba(110,190,150,0.42);--blobC:rgba(38,100,74,0.62);--bgtop:rgba(200,230,212,0.65);--bgbot:rgba(156,196,172,0.30);--bw:2px;--glow-border:0 0 12px rgba(200,230,212,0.15);--reflet:inset 0 1px 2px rgba(220,255,230,0.20);--clight:rgba(178,242,208,0.28);--emphbg:rgba(58,84,70,0.4);--warn:#D4A96A;--warnbg:rgba(212,180,131,0.10);--warnborder:rgba(212,180,131,0.28);--divider:rgba(156,196,172,0.12);--sheetbg:#0C1611;--inputbg:rgba(156,196,172,0.08);--sheet-bg:rgba(14,28,20,0.84);--sheet-border:rgba(156,196,172,0.24);--sheet-shadow:0 -6px 52px rgba(0,0,0,0.55);--row-bg:rgba(46,66,55,0.52);--row-border:rgba(156,196,172,0.18);--dialog-bg:rgba(10,22,15,0.95);--dialog-border:rgba(156,196,172,0.28)}
+.phone{width:412px;height:892px;border-radius:48px;overflow:hidden;position:relative;background:var(--bg-base);box-shadow:0 40px 90px rgba(20,30,25,0.28);font-family:'Nunito Sans',sans-serif;color:var(--tp)}
+.bg{position:absolute;inset:0;z-index:0;background:linear-gradient(160deg,var(--g1),var(--g2) 55%,var(--g3))}
+.blob{position:absolute;border-radius:50%;filter:blur(42px)}
+.blob.a{width:360px;height:360px;left:-110px;top:10px;background:radial-gradient(circle,var(--blobA),transparent 66%);animation:drift1 16s ease-in-out infinite}
+.blob.b{width:320px;height:320px;right:-120px;top:290px;background:radial-gradient(circle,var(--blobB),transparent 68%);animation:drift2 19s ease-in-out infinite}
+.blob.c{width:300px;height:300px;left:30px;bottom:-90px;background:radial-gradient(circle,var(--blobC),transparent 70%);animation:drift1 23s ease-in-out infinite}
+.caustic{position:absolute;border-radius:50%;pointer-events:none;background:radial-gradient(circle,var(--clight),transparent 68%)}
+.glass{background:linear-gradient(180deg,var(--sheen),transparent 44%) padding-box,var(--glass) padding-box,linear-gradient(180deg,var(--bgtop),var(--bgbot)) border-box;backdrop-filter:blur(var(--blur)) saturate(200%);-webkit-backdrop-filter:blur(var(--blur)) saturate(200%);border:var(--bw) solid transparent;box-shadow:var(--gshadow),var(--glow-border),var(--reflet),inset 0 1px 0 var(--ghi)}
+.content{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;opacity:1;transform:translateX(0);transition:opacity 300ms cubic-bezier(.22,1,.36,1),transform 350ms cubic-bezier(.22,1,.36,1)}
+.content.from-right{opacity:0;transform:translateX(32px)}.content.exit-left{opacity:0;transform:translateX(-32px)}
+.statusbar{height:46px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;padding:0 26px}
+.time{font-weight:700;font-size:15px;letter-spacing:.3px}.sysicons{display:flex;align-items:center;gap:7px;color:var(--tp)}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:0 20px;flex-shrink:0;margin-bottom:2px}
+.backbtn{width:40px;height:40px;border-radius:999px;border:none;background:var(--emphbg);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--tp)}
+.topbartitle{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:18px;letter-spacing:-.4px}
+.subtitle{font-size:13px;color:var(--ts);padding:0 24px;margin-bottom:14px;flex-shrink:0}
+.scroll{flex:1;overflow-y:auto;padding:0 20px 16px}
+.approw{border-radius:20px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:flex-start;gap:14px}
+.appicon{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:16px;flex-shrink:0}
+.appicon.sm{width:36px;height:36px;border-radius:11px;font-size:13px;flex-shrink:0}
+.appinfo{flex:1;min-width:0}
+.appname{font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:15px;letter-spacing:-.2px;line-height:1}
+.appbadge{display:inline-flex;align-items:center;margin-top:6px;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;letter-spacing:.3px}
+.badge-selective{background:var(--emphbg);color:var(--accent);border:1px solid var(--accentsoft)}
+.badge-total{background:var(--warnbg);color:var(--warn);border:1px solid var(--warnborder)}
+.appsub{font-size:12px;color:var(--tt);margin-top:5px;line-height:1.5}
+.addbtn{width:100%;padding:16px;border-radius:20px;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:15px;color:var(--accent);display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px;margin-bottom:14px;transition:transform 180ms cubic-bezier(.22,1,.36,1)}
+.addbtn:active{transform:scale(.98)}
+.note{font-size:12px;color:var(--tt);text-align:center;line-height:1.55;padding:0 12px;margin-bottom:8px}
+.homeind{height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pill{width:122px;height:5px;border-radius:3px;background:var(--tp);opacity:.32}
+.sheet-overlay{position:absolute;inset:0;z-index:20;background:rgba(10,20,14,0.45);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:flex-end}
+.sheet{background:var(--sheet-bg);backdrop-filter:blur(36px) saturate(200%);-webkit-backdrop-filter:blur(36px) saturate(200%);border-radius:28px 28px 0 0;border-top:1.5px solid var(--sheet-border);border-left:1.5px solid var(--sheet-border);border-right:1.5px solid var(--sheet-border);width:100%;padding:14px 20px 20px;max-height:72%;display:flex;flex-direction:column;box-shadow:var(--sheet-shadow),inset 0 1px 0 rgba(255,255,255,0.55)}
+.sheet-handle{width:36px;height:4px;border-radius:2px;background:var(--tt);opacity:.35;margin:0 auto 16px}
+.sheet-title{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:17px;letter-spacing:-.3px;margin-bottom:12px}
+.search-wrap{margin-bottom:12px}
+.searchinput{width:100%;padding:12px 16px 12px 40px;border-radius:14px;border:1.5px solid var(--row-border);background:var(--row-bg);backdrop-filter:blur(10px);font-family:'Nunito Sans',sans-serif;font-size:14px;color:var(--tp);outline:none}.search-wrap{position:relative}.search-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--tt);pointer-events:none}
+.sheet-scroll{flex:1;overflow-y:auto}
+.poolrow{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:14px;cursor:pointer;transition:opacity 160ms;background:var(--row-bg);border:1px solid var(--row-border);margin-bottom:6px}
+.poolrow:active{opacity:.6}
+.poolname{flex:1;font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:15px;color:var(--tp)}
+.pool-empty{text-align:center;color:var(--tt);font-size:14px;padding:24px 0}
+.dialog-overlay{position:absolute;inset:0;z-index:30;background:rgba(10,20,14,0.60);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:32px}
+.dialog{border-radius:24px;padding:26px;width:100%;background:var(--bg-base);border:1.5px solid var(--sheet-border);box-shadow:0 28px 72px rgba(0,0,0,0.55),inset 0 1px 0 var(--sheet-border)}
+.dialog-title{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:18px;letter-spacing:-.4px;margin-bottom:8px}
+.dialog-sub{font-size:13px;color:var(--ts);line-height:1.55;margin-bottom:22px}
+.dialog-btns{display:flex;gap:10px}
+.dialog-cancel{flex:1;padding:15px;border-radius:999px;border:1.5px solid var(--accentsoft);background:transparent;color:var(--ts);font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:15px;cursor:pointer}
+.dialog-ok{flex:1;padding:15px;border-radius:999px;border:none;background:var(--warn);color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:15px;cursor:pointer;filter:brightness(1.08)}.badge-gray{background:rgba(94,140,114,0.08);color:var(--ts);border:1px solid var(--accentsoft)}.type-opts{display:flex;flex-direction:column;gap:8px;margin:14px 0 18px}.type-opt{padding:12px 14px;border-radius:14px;cursor:pointer;border:1.5px solid var(--divider);display:flex;align-items:center;gap:10px;transition:border-color 200ms,background 200ms}.type-opt.sel{border-color:var(--accent);background:var(--row-bg)}.type-opt-icon{width:30px;height:30px;border-radius:9px;background:var(--inputbg);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--accent)}.type-opt-info{flex:1}.type-opt-label{font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:13px;color:var(--tp)}.type-opt-sub{font-size:11px;color:var(--tt);margin-top:2px;line-height:1.4}.type-check{width:18px;height:18px;border-radius:50%;border:2px solid var(--accentsoft);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:background 200ms,border-color 200ms}.type-check.on{background:var(--accent);border-color:var(--accent)}
+@keyframes drift1{0%,100%{transform:translate(0,0)}50%{transform:translate(70px,55px)}}
+@keyframes drift2{0%,100%{transform:translate(0,0)}50%{transform:translate(-60px,-45px)}}
+@keyframes riseIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</helmet>
+<div class="phone {{ theme }}"><div class="bg"><div class="blob a"></div><div class="blob b"></div><div class="blob c"></div><div class="caustic a"></div><div class="caustic b"></div><div class="caustic c"></div><div class="caustic d"></div><div class="caustic e"></div></div><div class="content"><div class="statusbar"><span class="time">9:41</span><div class="sysicons"><svg width="18" height="16" viewBox="0 0 18 16" fill="currentColor"><rect x="0" y="11" width="3" height="5" rx="1"></rect><rect x="5" y="8" width="3" height="8" rx="1"></rect><rect x="10" y="5" width="3" height="11" rx="1"></rect><rect x="15" y="2" width="3" height="14" rx="1"></rect></svg><svg width="25" height="14" viewBox="0 0 25 14" fill="none"><rect x="1" y="1.5" width="20" height="11" rx="3.5" stroke="currentColor" stroke-width="1.4"></rect><rect x="3" y="3.5" width="13.5" height="7" rx="2" fill="currentColor"></rect><rect x="22.5" y="4.5" width="2" height="5" rx="1" fill="currentColor"></rect></svg></div></div><div class="topbar"><button class="backbtn" onClick="{{ goBack }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button><div class="topbartitle">Apps bloquées</div><div style="width:40px"></div></div><div class="subtitle">Gérer les apps filtrées</div><div class="scroll"><sc-for list="{{ blockedList }}" as="app" hint-placeholder-count="4"><div class="approw glass"><div class="appicon" style="{{ app.iconStyle }}">{{ app.initial }}</div><div class="appinfo"><div class="appname">{{ app.name }}</div><div class="appbadge {{ app.badgeClass }}">{{ app.badgeLabel }}</div><sc-if value="{{ app.hasDetail }}" hint-placeholder-val="{{ false }}"><div class="appsub">Bloqué : {{ app.blocked }} · Gardé : {{ app.kept }}</div></sc-if></div></div></sc-for><button class="addbtn glass" onClick="{{ openSheet }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>Ajouter une app</button><div class="note">Une app ajoutée ne peut pas être retirée tant que NoDoomScroll est installé.</div></div><div class="homeind"><div class="pill"></div></div></div><sc-if value="{{ sheetOpen }}" hint-placeholder-val="{{ false }}"><div class="sheet-overlay" onClick="{{ closeSheet }}"><div class="sheet" onClick="{{ stopProp }}"><div class="sheet-handle"></div><div class="sheet-title">Ajouter une app</div><div class="search-wrap"><svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><input class="searchinput" placeholder="Rechercher une app…" value="{{ searchQuery }}" onInput="{{ onSearch }}"></input></div><div class="sheet-scroll"><sc-if value="{{ poolEmpty }}" hint-placeholder-val="{{ false }}"><div class="pool-empty">Aucune app disponible</div></sc-if><sc-for list="{{ filteredPool }}" as="papp" hint-placeholder-count="5"><div class="poolrow" onClick="{{ papp.onAdd }}"><div class="appicon sm" style="{{ papp.iconStyle }}">{{ papp.initial }}</div><div class="poolname">{{ papp.name }}</div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="color:var(--tt)"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></div></sc-for></div></div></div></sc-if><sc-if value="{{ confirmOpen }}" hint-placeholder-val="{{ false }}"><div class="dialog-overlay"><div class="dialog"><div class="dialog-title">Ajouter {{ confirmName }}</div><div class="dialog-sub">Choisis le type de restriction.</div><div class="type-opts"><div class="{{ typeOptTotal }}" onClick="{{ selectTotal }}"><div class="type-opt-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="3"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></div><div class="type-opt-info"><div class="type-opt-label">Blocage total</div><div class="type-opt-sub">L'accès à l'app est entièrement bloqué.</div></div><div class="{{ typeCheckTotal }}"><sc-if value="{{ selTotal }}" hint-placeholder-val="{{ false }}"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"></polyline></svg></sc-if></div></div><div class="{{ typeOptGray }}" onClick="{{ selectGray }}"><div class="type-opt-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor" stroke="none"></path></svg></div><div class="type-opt-info"><div class="type-opt-label">Grayscale uniquement</div><div class="type-opt-sub">L'app passe en niveaux de gris.</div></div><div class="{{ typeCheckGray }}"><sc-if value="{{ selGray }}" hint-placeholder-val="{{ false }}"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"></polyline></svg></sc-if></div></div></div><div class="dialog-btns"><button class="dialog-cancel" onClick="{{ cancelConfirm }}">Annuler</button><button class="dialog-ok" onClick="{{ doConfirm }}">Ajouter</button></div></div></div></sc-if></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: {&quot;width&quot;: &quot;412px&quot;, &quot;height&quot;: &quot;892px&quot;},
+  &quot;theme&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;light&quot;,&quot;dark&quot;], &quot;default&quot;: &quot;light&quot;, &quot;tsType&quot;: &quot;'light'|'dark'&quot;}
+}">
+class Component extends DCLogic {
+  state = { sheetOpen: false, searchQuery: '', confirmApp: null, customApps: [], selectedType: 'total' };
+
+  NATIVE = {
+    instagram: { name:'Instagram', color:'#C13584', text:'#fff', initial:'Ig', type:'selective', blocked:'Feed, Reels, Explore', kept:'Messages, Stories' },
+    youtube:   { name:'YouTube',   color:'#FF0000', text:'#fff', initial:'Yt', type:'selective', blocked:'Shorts, Accueil',      kept:'Abonnements, Recherche' },
+    tiktok:    { name:'TikTok',    color:'#1a1a1a', text:'#fff', initial:'Tt', type:'total' },
+    snapchat:  { name:'Snapchat',  color:'#FFCD00', text:'#1a1a1a', initial:'Sc', type:'selective', blocked:'Discover', kept:'Messages, Stories' },
+  };
+
+  POOL = [
+    { id:'twitter',   name:'Twitter / X', color:'#1DA1F2', text:'#fff', initial:'Tw' },
+    { id:'reddit',    name:'Reddit',       color:'#FF4500', text:'#fff', initial:'Re' },
+    { id:'facebook',  name:'Facebook',     color:'#1877F2', text:'#fff', initial:'Fb' },
+    { id:'linkedin',  name:'LinkedIn',     color:'#0A66C2', text:'#fff', initial:'Li' },
+    { id:'pinterest', name:'Pinterest',    color:'#E60023', text:'#fff', initial:'Pi' },
+    { id:'twitch',    name:'Twitch',       color:'#9146FF', text:'#fff', initial:'Tv' },
+    { id:'discord',   name:'Discord',      color:'#5865F2', text:'#fff', initial:'Dc' },
+    { id:'telegram',  name:'Telegram',     color:'#2CA5E0', text:'#fff', initial:'Tg' },
+    { id:'whatsapp',  name:'WhatsApp',     color:'#25D366', text:'#fff', initial:'Wa' },
+    { id:'netflix',   name:'Netflix',      color:'#E50914', text:'#fff', initial:'Nf' },
+    { id:'bereal',    name:'BeReal',       color:'#1D1D1B', text:'#fff', initial:'Br' },
+    { id:'spotify',   name:'Spotify',      color:'#1DB954', text:'#fff', initial:'Sp' },
+  ];
+
+  componentDidMount() {
+    const root = ReactDOM.findDOMNode(this);
+    if (!root) return;
+    const el = root.querySelector('.content');
+    if (el) { el.classList.add('from-right'); requestAnimationFrame(() => requestAnimationFrame(() => el.classList.remove('from-right'))); }
+    root.querySelectorAll('.scroll > *').forEach((it, i) => { it.style.animation = 'riseIn .55s cubic-bezier(.22,1,.36,1) ' + (0.14 + i * 0.07).toFixed(2) + 's both'; });
+    root.querySelectorAll('.caustic').forEach(c => {
+      c.style.top=(Math.random()*72).toFixed(1)+'%'; c.style.left=(Math.random()*72).toFixed(1)+'%';
+      c.style.width=Math.round(70+Math.random()*170)+'px'; c.style.height=Math.round(70+Math.random()*170)+'px';
+      c.style.animationDuration=(5+Math.random()*9).toFixed(1)+'s'; c.style.animationDelay='-'+(Math.random()*12).toFixed(1)+'s';
+    });
+    ['scroll','sheet-scroll'].forEach(cls => {
+      const sc = root.querySelector('.'+cls);
+      if (sc) { sc.style.scrollbarWidth='none'; sc.style.msOverflowStyle='none'; }
+    });
+    if (!document.getElementById('_noscr')) { const s=document.createElement('style'); s.id='_noscr'; s.textContent='.scroll::-webkit-scrollbar,.sheet-scroll::-webkit-scrollbar{display:none}'; document.head.appendChild(s); }
+    try { const d=localStorage.getItem('nds_apps_custom'); if(d) this.setState({ customApps: JSON.parse(d) }); } catch(e){}
+  }
+
+  saveCustom(list) {
+    try { localStorage.setItem('nds_apps_custom', JSON.stringify(list)); } catch(e){}
+  }
+
+  navigate(url) {
+    const root = ReactDOM.findDOMNode(this);
+    const el = root && root.querySelector('.content');
+    if (el) el.classList.add('exit-left');
+    setTimeout(() => { window.location.href = url; }, 320);
+  }
+
+  renderVals() {
+    const theme = this.props.theme ?? 'light';
+    const { sheetOpen, searchQuery, confirmApp, customApps, selectedType } = this.state;
+
+    let ndsApps = { instagram:true, youtube:true, tiktok:true, snapchat:false };
+    try { const d=localStorage.getItem('nds_apps'); if(d) ndsApps=JSON.parse(d); } catch(e){}
+
+    // Build blocked list from native apps
+    const blockedList = Object.entries(this.NATIVE)
+      .filter(([key]) => ndsApps[key])
+      .map(([, a]) => ({
+        name: a.name, initial: a.initial,
+        iconStyle: { background: a.color, color: a.text },
+        badgeClass: a.type === 'selective' ? 'appbadge badge-selective' : 'appbadge badge-total',
+        badgeLabel: a.type === 'selective' ? 'Filtrage sélectif' : 'Blocage total',
+        hasDetail: a.type === 'selective',
+        blocked: a.blocked || '', kept: a.kept || '',
+      }))
+      .concat(customApps.map(a => ({
+        name: a.name, initial: a.initial,
+        iconStyle: { background: a.color, color: a.text },
+        badgeClass: a.type === 'grayscale' ? 'appbadge badge-selective' : 'appbadge badge-total',
+        badgeLabel: a.type === 'grayscale' ? 'Grayscale uniquement' : 'Blocage total',
+        hasDetail: false, blocked: '', kept: '',
+      })));
+
+    // Pool: filter already-custom
+    const customIds = new Set(customApps.map(a => a.id));
+    const query = searchQuery.toLowerCase();
+    const filtered = this.POOL
+      .filter(a => !customIds.has(a.id) && (!query || a.name.toLowerCase().includes(query)));
+    const filteredPool = filtered.map(a => ({
+      ...a,
+      iconStyle: { background: a.color, color: a.text },
+      onAdd: () => this.setState({ confirmApp: a, sheetOpen: false, selectedType: 'total' }),
+    }));
+
+    const confirmOpen = !!confirmApp;
+    const confirmName = confirmApp ? confirmApp.name : '';
+
+    return {
+      theme, blockedList,
+      sheetOpen, filteredPool, searchQuery,
+      poolEmpty: sheetOpen && filteredPool.length === 0,
+      confirmOpen, confirmName,
+      openSheet:  () => this.setState({ sheetOpen: true, searchQuery: '' }),
+      closeSheet: () => this.setState({ sheetOpen: false }),
+      stopProp:   (e) => e.stopPropagation(),
+      onSearch:   (e) => this.setState({ searchQuery: e.target.value }),
+      cancelConfirm: () => this.setState({ confirmApp: null }),
+      selTotal: selectedType === 'total',
+      selGray:  selectedType === 'grayscale',
+      typeOptTotal:  'type-opt' + (selectedType === 'total'      ? ' sel' : ''),
+      typeOptGray:   'type-opt' + (selectedType === 'grayscale'  ? ' sel' : ''),
+      typeCheckTotal:'type-check' + (selectedType === 'total'     ? ' on' : ''),
+      typeCheckGray: 'type-check' + (selectedType === 'grayscale' ? ' on' : ''),
+      selectTotal: () => this.setState({ selectedType: 'total' }),
+      selectGray:  () => this.setState({ selectedType: 'grayscale' }),
+      doConfirm: () => {
+        if (!confirmApp) return;
+        const next = [...customApps, { ...confirmApp, type: selectedType }];
+        this.saveCustom(next);
+        this.setState({ confirmApp: null, customApps: next });
+      },
+      goBack: () => this.navigate('./HomeScreen.dc.html'),
+    };
+  }
+}
+</script>
+</body>
+</html>

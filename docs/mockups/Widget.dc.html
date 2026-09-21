@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800;900&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<meta name="design_doc_mode" content="canvas">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito Sans',sans-serif}
+.frame-label{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:13px;color:#8a9890;margin-bottom:10px;letter-spacing:.2px}
+.phone{width:390px;height:720px;border-radius:42px;overflow:hidden;position:relative;box-shadow:0 32px 80px rgba(0,0,0,0.36)}
+.wallpaper-light{background:linear-gradient(160deg,#e8f4ec 0%,#d4ecdf 40%,#c2e0cf 100%)}
+.wallpaper-dark{background:linear-gradient(160deg,#070c09 0%,#0c1611 40%,#101f17 100%)}
+.phone-status{height:36px;display:flex;align-items:center;justify-content:space-between;padding:0 22px}
+.status-time{font-weight:700;font-size:14px;letter-spacing:.3px}
+.status-icons{display:flex;align-items:center;gap:6px}
+.light-txt{color:#22302A}.dark-txt{color:#EAF2ED}
+.light-txt-dim{color:rgba(34,48,42,0.45)}.dark-txt-dim{color:rgba(234,242,237,0.45)}
+.widgets-row{display:flex;gap:14px;padding:14px 18px 0;flex-wrap:wrap}
+.widget{width:156px;height:156px;border-radius:24px;padding:18px 16px 14px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.widget-light{background:rgba(255,255,255,0.72);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 4px 24px rgba(94,140,114,0.18),inset 0 1px 0 rgba(255,255,255,0.9)}
+.widget-dark{background:rgba(20,38,28,0.78);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 4px 28px rgba(0,0,0,0.45),inset 0 1px 0 rgba(156,196,172,0.18)}
+.streak-num{font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:52px;letter-spacing:-3px;line-height:1;color:#5E8C72}
+.streak-num-dark{color:#9CC4AC}
+.streak-lbl{font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:12px;letter-spacing:.1px;color:#5A6B62;margin-top:1px}
+.streak-lbl-dark{color:#A7B8AE}
+.saved-wrap{margin-top:auto;margin-bottom:22px}
+.saved-num{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:20px;letter-spacing:-.8px;color:#22302A;line-height:1}
+.saved-num-dark{color:#EAF2ED}
+.saved-lbl{font-size:10px;font-weight:600;color:#8A9890;margin-top:2px;letter-spacing:.1px}
+.saved-lbl-dark{color:#6E7E75}
+.mode-row{position:absolute;bottom:12px;right:14px;display:flex;align-items:center;gap:5px}
+.mode-dot{width:7px;height:7px;border-radius:50%}
+.mode-dot-dispo{background:#5E8C72}.mode-dot-dispo-dark{background:#9CC4AC}
+.mode-dot-epuise{background:#8A9890}.mode-dot-epuise-dark{background:#6E7E75}
+.mode-dot-hors{background:#C99A5B}.mode-dot-hors-dark{background:#D4A96A}
+.mode-txt{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:10px;letter-spacing:.2px;color:#5A6B62}
+.mode-txt-dark{color:#A7B8AE}
+.app-grid{display:grid;grid-template-columns:repeat(4,54px);gap:14px;padding:16px 18px;margin-top:6px}
+.app-ic{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:18px;color:#fff}
+.app-lbl{font-size:10px;text-align:center;margin-top:5px;font-weight:600}
+.dock{position:absolute;bottom:0;left:0;right:0;height:82px;display:flex;align-items:center;justify-content:center;gap:18px;padding-bottom:10px}
+.dock-light{background:rgba(255,255,255,0.52);backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.7)}
+.dock-dark{background:rgba(14,28,20,0.60);backdrop-filter:blur(16px);border-top:1px solid rgba(156,196,172,0.10)}
+.home-ind{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);width:100px;height:4px;border-radius:2px}
+.home-ind-light{background:rgba(34,48,42,0.25)}.home-ind-dark{background:rgba(234,242,237,0.22)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
+.tick{animation:pulse 2s ease-in-out infinite}
+</style>
+</helmet>
+<div style="position:absolute;left:60px;top:40px;width:420px"><div class="frame-label" data-drags-parent="1">Widget — Light</div><div class="phone wallpaper-light"><div class="phone-status light-txt"><span class="time-display">9:41</span><div class="status-icons"><svg width="16" height="14" viewBox="0 0 18 16" fill="currentColor"><rect x="0" y="11" width="3" height="5" rx="1"></rect><rect x="5" y="8" width="3" height="8" rx="1"></rect><rect x="10" y="5" width="3" height="11" rx="1"></rect><rect x="15" y="2" width="3" height="14" rx="1"></rect></svg><svg width="22" height="12" viewBox="0 0 25 14" fill="none"><rect x="1" y="1.5" width="20" height="11" rx="3.5" stroke="currentColor" stroke-width="1.4"></rect><rect x="3" y="3.5" width="13.5" height="7" rx="2" fill="currentColor"></rect><rect x="22.5" y="4.5" width="2" height="5" rx="1" fill="currentColor"></rect></svg></div></div><div class="widgets-row"><div class="widget widget-light"><div class="streak-num">{{ streak }}</div><div class="streak-lbl">jours de streak</div><div class="saved-wrap"><div class="saved-num">{{ savedTime }}</div><div class="saved-lbl">économisé aujourd'hui</div></div><div class="mode-row"><div class="{{ modeDotL }}"></div><span class="mode-txt">{{ modeLabel }}</span></div></div></div><div class="app-grid"><div><div class="app-ic" style="background:#C13584">Ig</div><div class="app-lbl light-txt-dim">Instagram</div></div><div><div class="app-ic" style="background:#FF0000">Yt</div><div class="app-lbl light-txt-dim">YouTube</div></div><div><div class="app-ic" style="background:#1a1a1a">Tt</div><div class="app-lbl light-txt-dim">TikTok</div></div><div><div class="app-ic" style="background:#1DA1F2">Tw</div><div class="app-lbl light-txt-dim">Twitter</div></div><div><div class="app-ic" style="background:#5865F2">Dc</div><div class="app-lbl light-txt-dim">Discord</div></div><div><div class="app-ic" style="background:#25D366">Wa</div><div class="app-lbl light-txt-dim">WhatsApp</div></div><div><div class="app-ic" style="background:#1DB954">Sp</div><div class="app-lbl light-txt-dim">Spotify</div></div><div><div class="app-ic" style="background:#4A90D9">Ca</div><div class="app-lbl light-txt-dim">Camera</div></div></div><div class="dock dock-light"><div class="app-ic" style="background:#5E8C72;width:52px;height:52px;border-radius:14px;font-size:20px">N</div><div class="app-ic" style="background:#1877F2;width:52px;height:52px;border-radius:14px;font-size:18px">Fb</div><div class="app-ic" style="background:#2CA5E0;width:52px;height:52px;border-radius:14px;font-size:18px">Tg</div><div class="app-ic" style="background:#E50914;width:52px;height:52px;border-radius:14px;font-size:18px">Nf</div></div><div class="home-ind home-ind-light"></div></div></div><div style="position:absolute;left:520px;top:40px;width:420px"><div class="frame-label" data-drags-parent="1">Widget — Dark</div><div class="phone wallpaper-dark"><div class="phone-status dark-txt"><span>9:41</span><div class="status-icons"><svg width="16" height="14" viewBox="0 0 18 16" fill="currentColor"><rect x="0" y="11" width="3" height="5" rx="1"></rect><rect x="5" y="8" width="3" height="8" rx="1"></rect><rect x="10" y="5" width="3" height="11" rx="1"></rect><rect x="15" y="2" width="3" height="14" rx="1"></rect></svg><svg width="22" height="12" viewBox="0 0 25 14" fill="none"><rect x="1" y="1.5" width="20" height="11" rx="3.5" stroke="currentColor" stroke-width="1.4"></rect><rect x="3" y="3.5" width="13.5" height="7" rx="2" fill="currentColor"></rect><rect x="22.5" y="4.5" width="2" height="5" rx="1" fill="currentColor"></rect></svg></div></div><div class="widgets-row"><div class="widget widget-dark"><div class="streak-num streak-num-dark">{{ streak }}</div><div class="streak-lbl streak-lbl-dark">jours de streak</div><div class="saved-wrap"><div class="saved-num saved-num-dark">{{ savedTime }}</div><div class="saved-lbl saved-lbl-dark">économisé aujourd'hui</div></div><div class="mode-row"><div class="{{ modeDotD }}"></div><span class="mode-txt mode-txt-dark">{{ modeLabel }}</span></div></div></div><div class="app-grid"><div><div class="app-ic" style="background:#C13584">Ig</div><div class="app-lbl dark-txt-dim">Instagram</div></div><div><div class="app-ic" style="background:#FF0000">Yt</div><div class="app-lbl dark-txt-dim">YouTube</div></div><div><div class="app-ic" style="background:#333">Tt</div><div class="app-lbl dark-txt-dim">TikTok</div></div><div><div class="app-ic" style="background:#1DA1F2">Tw</div><div class="app-lbl dark-txt-dim">Twitter</div></div><div><div class="app-ic" style="background:#5865F2">Dc</div><div class="app-lbl dark-txt-dim">Discord</div></div><div><div class="app-ic" style="background:#25D366">Wa</div><div class="app-lbl dark-txt-dim">WhatsApp</div></div><div><div class="app-ic" style="background:#1DB954">Sp</div><div class="app-lbl dark-txt-dim">Spotify</div></div><div><div class="app-ic" style="background:#4A90D9">Ca</div><div class="app-lbl dark-txt-dim">Camera</div></div></div><div class="dock dock-dark"><div class="app-ic" style="background:#5E8C72;width:52px;height:52px;border-radius:14px;font-size:20px">N</div><div class="app-ic" style="background:#1877F2;width:52px;height:52px;border-radius:14px;font-size:18px">Fb</div><div class="app-ic" style="background:#2CA5E0;width:52px;height:52px;border-radius:14px;font-size:18px">Tg</div><div class="app-ic" style="background:#E50914;width:52px;height:52px;border-radius:14px;font-size:18px">Nf</div></div><div class="home-ind home-ind-dark"></div></div></div><div style="position:absolute;left:60px;top:820px;width:900px"><div class="frame-label" data-drags-parent="1">Variantes Mode libre</div><div style="display:flex;gap:24px"><div class="widget widget-light" style="width:156px;height:156px"><div class="streak-num">14</div><div class="streak-lbl">jours de streak</div><div class="saved-wrap"><div class="saved-num">1h 23</div><div class="saved-lbl">économisé aujourd'hui</div></div><div class="mode-row"><div class="mode-dot mode-dot-dispo"></div><span class="mode-txt">dispo</span></div></div><div class="widget widget-light" style="width:156px;height:156px"><div class="streak-num">14</div><div class="streak-lbl">jours de streak</div><div class="saved-wrap"><div class="saved-num">1h 23</div><div class="saved-lbl">économisé aujourd'hui</div></div><div class="mode-row"><div class="mode-dot mode-dot-epuise"></div><span class="mode-txt">épuisé</span></div></div><div class="widget widget-light" style="width:156px;height:156px"><div class="streak-num">14</div><div class="streak-lbl">jours de streak</div><div class="saved-wrap"><div class="saved-num">1h 23</div><div class="saved-lbl">économisé aujourd'hui</div></div><div class="mode-row"><div class="mode-dot mode-dot-hors"></div><span class="mode-txt">hors plage</span></div></div><div class="widget widget-dark" style="width:156px;height:156px"><div class="streak-num streak-num-dark">14</div><div class="streak-lbl streak-lbl-dark">jours de streak</div><div class="saved-wrap"><div class="saved-num saved-num-dark">1h 23</div><div class="saved-lbl saved-lbl-dark">économisé aujourd'hui</div></div><div class="mode-row"><div class="mode-dot mode-dot-dispo-dark"></div><span class="mode-txt mode-txt-dark">dispo</span></div></div><div class="widget widget-dark" style="width:156px;height:156px"><div class="streak-num streak-num-dark">14</div><div class="streak-lbl streak-lbl-dark">jours de streak</div><div class="saved-wrap"><div class="saved-num saved-num-dark">1h 23</div><div class="saved-lbl saved-lbl-dark">économisé aujourd'hui</div></div><div class="mode-row"><div class="mode-dot mode-dot-epuise-dark"></div><span class="mode-txt mode-txt-dark">épuisé</span></div></div><div class="widget widget-dark" style="width:156px;height:156px"><div class="streak-num streak-num-dark">14</div><div class="streak-lbl streak-lbl-dark">jours de streak</div><div class="saved-wrap"><div class="saved-num saved-num-dark">1h 23</div><div class="saved-lbl saved-lbl-dark">économisé aujourd'hui</div></div><div class="mode-row"><div class="mode-dot mode-dot-hors-dark"></div><span class="mode-txt mode-txt-dark">hors plage</span></div></div></div></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: {&quot;width&quot;: &quot;1060px&quot;, &quot;height&quot;: &quot;1060px&quot;},
+  &quot;streak&quot;:      {&quot;editor&quot;: &quot;int&quot;,  &quot;default&quot;: 14,   &quot;min&quot;: 0, &quot;max&quot;: 999, &quot;tsType&quot;: &quot;number&quot;},
+  &quot;savedMin&quot;:    {&quot;editor&quot;: &quot;int&quot;,  &quot;default&quot;: 83,   &quot;min&quot;: 0, &quot;max&quot;: 480, &quot;tsType&quot;: &quot;number&quot;},
+  &quot;modeStatus&quot;:  {&quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;dispo&quot;,&quot;epuise&quot;,&quot;hors&quot;], &quot;default&quot;: &quot;dispo&quot;, &quot;tsType&quot;: &quot;'dispo'|'epuise'|'hors'&quot;}
+}">
+class Component extends DCLogic {
+  state = { tick: 0 };
+  _interval = null;
+
+  componentDidMount() {
+    this._interval = setInterval(() => this.setState(s => ({ tick: s.tick + 1 })), 60000);
+    const el = document.querySelector('.time-display');
+    if (el) el.textContent = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+  }
+
+  componentWillUnmount() { clearInterval(this._interval); }
+
+  fmtTime(min) {
+    if (!min || min <= 0) return '0 min';
+    if (min < 60) return min + ' min';
+    const h = Math.floor(min/60), m = min % 60;
+    return h + 'h ' + (m ? String(m).padStart(2,'0') : '');
+  }
+
+  renderVals() {
+    const streak   = this.props.streak   ?? 14;
+    const savedMin = this.props.savedMin ?? 83;
+    const modeStatus = this.props.modeStatus ?? 'dispo';
+
+    const savedTime = this.fmtTime(savedMin);
+
+    const modeDotMap = {
+      dispo:   { l: 'mode-dot mode-dot-dispo',       d: 'mode-dot mode-dot-dispo-dark'  },
+      epuise:  { l: 'mode-dot mode-dot-epuise',      d: 'mode-dot mode-dot-epuise-dark' },
+      hors:    { l: 'mode-dot mode-dot-hors',        d: 'mode-dot mode-dot-hors-dark'   },
+    };
+    const modeKey   = modeStatus === 'epuise' ? 'epuise' : modeStatus === 'hors' ? 'hors' : 'dispo';
+    const modeLabelMap = { dispo: 'dispo', epuise: 'épuisé', hors: 'hors plage' };
+
+    return {
+      streak,
+      savedTime,
+      modeLabel: modeLabelMap[modeKey],
+      modeDotL: modeDotMap[modeKey].l,
+      modeDotD: modeDotMap[modeKey].d,
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">NoDoomScroll</string>
+    <string name="accessibility_service_label">NoDoomScroll</string>
+    <string name="accessibility_service_description">Détecte les apps à scroll infini (Instagram, YouTube, TikTok, Snapchat) et affiche un blocage par-dessus le contenu addictif. Aucune donnée ne quitte l\'appareil.</string>
+    <string name="overlay_title">Contenu bloqué</string>
+    <string name="overlay_message">Tu as choisi de ne pas voir ça.</string>
+    <string name="overlay_back">Retour</string>
+</resources>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+.light{--bg-base:#F4FAF6;--g1:#F6FBF8;--g2:#EEF7F1;--g3:#E3F1E9;--glass:rgba(255,255,255,0.28);--ghi:rgba(255,255,255,0.80);--sheen:rgba(255,255,255,0.38);--accent:#5E8C72;--accent2:#4A7560;--accentsoft:#A8C9B5;--onacc:#FFFFFF;--tp:#22302A;--ts:#5A6B62;--tt:#8A9890;--warn:#C99A5B;--warnbg:rgba(201,154,91,0.12);--warnborder:rgba(201,154,91,0.35);--gshadow:0 10px 34px rgba(94,140,114,0.10);--blur:50px;--blobA:rgba(168,201,181,0.5);--blobB:rgba(200,230,212,0.6);--blobC:rgba(255,255,255,0.7);--bgtop:rgba(255,255,255,0.95);--bgbot:rgba(255,255,255,0.50);--bw:1.5px;--glow-border:0 0 8px rgba(255,255,255,0.25);--reflet:inset 0 1px 1.5px rgba(255,255,255,0.60);--clight:rgba(88,178,130,0.52)}
+.dark{--bg-base:#070C09;--g1:#090F0B;--g2:#0C1611;--g3:#101F17;--glass:rgba(46,66,55,0.32);--ghi:rgba(205,255,224,0.55);--sheen:rgba(200,245,222,0.18);--accent:#9CC4AC;--accent2:#B4D6C2;--accentsoft:#3A5446;--onacc:#0F1712;--tp:#EAF2ED;--ts:#A7B8AE;--tt:#6E7E75;--warn:#D4B483;--warnbg:rgba(212,180,131,0.10);--warnborder:rgba(212,180,131,0.28);--gshadow:0 32px 84px rgba(0,0,0,0.66);--blur:58px;--blobA:rgba(64,150,108,0.6);--blobB:rgba(110,190,150,0.42);--blobC:rgba(38,100,74,0.62);--bgtop:rgba(200,230,212,0.65);--bgbot:rgba(156,196,172,0.30);--bw:2px;--glow-border:0 0 12px rgba(200,230,212,0.15);--reflet:inset 0 1px 2px rgba(220,255,230,0.20);--clight:rgba(178,242,208,0.28)}
+.phone{width:412px;height:892px;border-radius:48px;overflow:hidden;position:relative;background:var(--bg-base);box-shadow:0 40px 90px rgba(20,30,25,0.28);font-family:'Nunito Sans',sans-serif;color:var(--tp)}
+.bg{position:absolute;inset:0;z-index:0;background:linear-gradient(160deg,var(--g1),var(--g2) 55%,var(--g3))}
+.blob{position:absolute;border-radius:50%;filter:blur(42px)}
+.blob.a{width:360px;height:360px;left:-110px;top:10px;background:radial-gradient(circle,var(--blobA),transparent 66%);animation:drift1 16s ease-in-out infinite}
+.blob.b{width:320px;height:320px;right:-120px;top:290px;background:radial-gradient(circle,var(--blobB),transparent 68%);animation:drift2 19s ease-in-out infinite}
+.blob.c{width:300px;height:300px;left:30px;bottom:-90px;background:radial-gradient(circle,var(--blobC),transparent 70%);animation:drift1 23s ease-in-out infinite}
+.caustic{position:absolute;border-radius:50%;pointer-events:none;background:radial-gradient(circle,var(--clight),transparent 68%)}
+.glass{background:linear-gradient(180deg,var(--sheen),transparent 44%) padding-box,var(--glass) padding-box,linear-gradient(180deg,var(--bgtop),var(--bgbot)) border-box;backdrop-filter:blur(var(--blur)) saturate(200%);-webkit-backdrop-filter:blur(var(--blur)) saturate(200%);border:var(--bw) solid transparent;box-shadow:var(--gshadow),var(--glow-border),var(--reflet),inset 0 1px 0 var(--ghi),inset 0 -14px 32px rgba(255,255,255,0.05)}
+.content{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;padding:0 24px;opacity:1;transform:translateX(0);transition:opacity 300ms cubic-bezier(.22,1,.36,1),transform 350ms cubic-bezier(.22,1,.36,1)}
+.content.from-right{opacity:0;transform:translateX(32px)}.content.exit-left{opacity:0;transform:translateX(-32px)}
+.statusbar{height:46px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;padding:0 4px}
+.time{font-weight:700;font-size:15px;letter-spacing:.3px}.sysicons{display:flex;align-items:center;gap:7px;color:var(--tp)}
+.progbar{display:flex;gap:5px;flex-shrink:0}
+.progseg{flex:1;height:4px;border-radius:2px;background:var(--accentsoft)}.progseg.done{background:var(--accent)}
+.stitle{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:24px;letter-spacing:-.8px;line-height:1.2;margin-top:18px;flex-shrink:0}
+.sdesc{font-size:14px;color:var(--ts);line-height:1.6;margin-top:8px;flex-shrink:0}
+.scroll{flex:1;overflow-y:auto;padding-top:14px;padding-bottom:4px}
+.bottom{flex-shrink:0}
+.btnprim{width:100%;padding:18px 24px;border-radius:999px;background:var(--accent);color:var(--onacc);font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:16px;border:none;cursor:pointer;margin-top:14px}
+.homeind{height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pill{width:122px;height:5px;border-radius:3px;background:var(--tp);opacity:.32}
+.scard{border-radius:22px;padding:16px 18px;margin-top:12px}
+.scrow{display:flex;align-items:center;gap:14px}
+.appicon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:17px;flex-shrink:0}
+.sctext{flex:1;min-width:0}
+.sctitle{font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:15px;line-height:1.3}
+.scsub{font-size:12px;color:var(--ts);margin-top:3px;line-height:1.4}
+.tog{width:48px;height:28px;border-radius:14px;position:relative;cursor:pointer;transition:background .2s;flex-shrink:0;border:none;padding:0;background:var(--accentsoft)}
+.tog.on{background:var(--accent)}
+.togthumb{position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 2px 5px rgba(0,0,0,.18);transition:transform .22s cubic-bezier(.34,1.56,.64,1);pointer-events:none}
+.tog.on .togthumb{transform:translateX(20px)}
+.addcustom{width:100%;padding:14px 18px;border-radius:22px;border:1.5px dashed var(--accentsoft);background:transparent;color:var(--ts);font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:14px;cursor:pointer;margin-top:12px;text-align:left;display:flex;align-items:center;gap:10px}
+.warncard{border-radius:18px;padding:14px 16px;margin-top:12px;background:var(--warnbg);border:1.5px solid var(--warnborder);display:flex;gap:11px;align-items:flex-start}
+.warntext{font-size:13px;color:var(--ts);line-height:1.5;flex:1}
+.sheet-back{position:absolute;inset:0;z-index:30;display:flex;align-items:flex-end;background:rgba(6,12,9,0.45);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.sheet{border-radius:32px 32px 28px 28px;padding:24px 20px 20px;width:100%;background:var(--bg-base);box-shadow:0 -2px 40px rgba(0,0,0,0.14)}
+.sheet-ttl{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:18px;letter-spacing:-.3px;margin-bottom:16px}
+.sheet-search{width:100%;padding:12px 16px;border-radius:14px;border:1.5px solid var(--accentsoft);background:transparent;color:var(--tp);font-size:15px;font-family:'Nunito Sans',sans-serif;outline:none;margin-bottom:14px}
+.sheet-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--accentsoft)}
+.sheet-name{flex:1;font-size:15px;color:var(--tp);font-weight:600}
+@keyframes drift1{0%,100%{transform:translate(0,0)}50%{transform:translate(70px,55px)}}
+@keyframes drift2{0%,100%{transform:translate(0,0)}50%{transform:translate(-60px,-45px)}}
+@keyframes cf1{0%,100%{transform:translate(0,0) scale(1) rotate(0deg)}33%{transform:translate(22px,-16px) scale(1.18) rotate(14deg)}66%{transform:translate(-14px,22px) scale(.88) rotate(-9deg)}}
+@keyframes cf2{0%,100%{transform:translate(0,0) scale(1)}40%{transform:translate(-20px,14px) scale(1.22) rotate(6deg)}70%{transform:translate(16px,-11px) scale(.84) rotate(-11deg)}}
+@keyframes cf3{0%,100%{transform:translate(0,0) scale(1) rotate(0deg)}50%{transform:translate(12px,24px) scale(1.12) rotate(22deg)}}
+.still .blob,.still .caustic{animation:none}@keyframes riseIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</helmet>
+<div class="phone {{ theme }}"><div class="bg"><div class="blob a"></div><div class="blob b"></div><div class="blob c"></div><div class="caustic a"></div><div class="caustic b"></div><div class="caustic c"></div><div class="caustic d"></div><div class="caustic e"></div></div><div class="content"><div class="statusbar"><span class="time">9:41</span><div class="sysicons"><svg width="18" height="16" viewBox="0 0 18 16" fill="currentColor"><rect x="0" y="11" width="3" height="5" rx="1"></rect><rect x="5" y="8" width="3" height="8" rx="1"></rect><rect x="10" y="5" width="3" height="11" rx="1"></rect><rect x="15" y="2" width="3" height="14" rx="1"></rect></svg><svg width="25" height="14" viewBox="0 0 25 14" fill="none"><rect x="1" y="1.5" width="20" height="11" rx="3.5" stroke="currentColor" stroke-width="1.4"></rect><rect x="3" y="3.5" width="13.5" height="7" rx="2" fill="currentColor"></rect><rect x="22.5" y="4.5" width="2" height="5" rx="1" fill="currentColor"></rect></svg></div></div><div class="progbar"><div class="progseg done"></div><div class="progseg done"></div><div class="progseg done"></div><div class="progseg"></div><div class="progseg"></div><div class="progseg"></div><div class="progseg"></div></div><div class="stitle">Qu'est-ce qu'on bloque ?</div><div class="sdesc">Choisis les apps. On bloque juste le contenu addictif, tu gardes le reste.</div><div class="scroll"><div class="scard glass"><div class="scrow"><div class="appicon" style="{{ igStyle }}">Ig</div><div class="sctext"><div class="sctitle">Instagram</div><div class="scsub">Bloqué : Feed, Reels, Explore · Gardé : Messages, Stories, Profil</div></div><button class="{{ togIg }}" onClick="{{ toggleIg }}"><div class="togthumb"></div></button></div></div><div class="scard glass"><div class="scrow"><div class="appicon" style="{{ ytStyle }}">Yt</div><div class="sctext"><div class="sctitle">YouTube</div><div class="scsub">Bloqué : Shorts, Accueil · Gardé : Abonnements, Recherche, Vidéos</div></div><button class="{{ togYt }}" onClick="{{ toggleYt }}"><div class="togthumb"></div></button></div></div><div class="scard glass"><div class="scrow"><div class="appicon" style="{{ ttStyle }}">Tt</div><div class="sctext"><div class="sctitle">TikTok</div><div class="scsub">Bloqué : tout</div></div><button class="{{ togTt }}" onClick="{{ toggleTt }}"><div class="togthumb"></div></button></div></div><div class="scard glass"><div class="scrow"><div class="appicon" style="{{ scStyle }}">Sc</div><div class="sctext"><div class="sctitle">Snapchat</div><div class="scsub">Bloqué : Discover, Spotlight · Gardé : Chat, Snaps, Stories amis</div></div><button class="{{ togSc }}" onClick="{{ toggleSc }}"><div class="togthumb"></div></button></div></div><button class="addcustom" onClick="{{ openSheet }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>Ajouter une app custom</button><div class="warncard"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--warn)" stroke-width="2" stroke-linecap="round" flex-shrink="0"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg><div class="warntext">Une fois confirmé, on ne pourra plus retirer une app de la liste.</div></div></div><div class="bottom"><button class="btnprim" onClick="{{ goNext }}">Continuer</button></div><div class="homeind"><div class="pill"></div></div></div><sc-if value="{{ showSheet }}" hint-placeholder-val="{{ false }}"><div class="sheet-back" onClick="{{ closeSheet }}"><div class="sheet" onClick="{{ stopProp }}"><div class="sheet-ttl">Ajouter une app</div><input class="sheet-search" placeholder="Rechercher…" type="text"></input><div class="sheet-row"><div class="sheet-name">Messenger</div><button class="{{ togMsg }}" onClick="{{ toggleMsg }}"><div class="togthumb"></div></button></div><div class="sheet-row"><div class="sheet-name">X (Twitter)</div><button class="{{ togX }}" onClick="{{ toggleX }}"><div class="togthumb"></div></button></div><div class="sheet-row"><div class="sheet-name">Pinterest</div><button class="{{ togPin }}" onClick="{{ togglePin }}"><div class="togthumb"></div></button></div><div class="sheet-row"><div class="sheet-name">Reddit</div><button class="{{ togRed }}" onClick="{{ toggleRed }}"><div class="togthumb"></div></button></div><button class="btnprim" onClick="{{ closeSheet }}" style="margin-top:18px">Ajouter</button></div></div></sc-if></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;412px&quot;,&quot;height&quot;:&quot;892px&quot;},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;default&quot;:&quot;light&quot;,&quot;tsType&quot;:&quot;'light'|'dark'&quot;}}">
+class Component extends DCLogic {
+  state = { apps: { ig:true, yt:true, tt:true, sc:true }, showSheet: false, sheet: { msg:false, x:false, pin:false, red:false } };
+  componentDidMount() {
+    const root = ReactDOM.findDOMNode(this);
+    if (!root) return;
+    const el = root.querySelector('.content');
+    if (el) { el.classList.add('from-right'); requestAnimationFrame(() => requestAnimationFrame(() => el.classList.remove('from-right'))); }
+    root.querySelectorAll('.scroll > *,.btnprimary').forEach((it,i)=>{ it.style.animation='riseIn .6s cubic-bezier(.22,1,.36,1) '+(0.06+i*0.09).toFixed(2)+'s both'; });
+    root.querySelectorAll('.caustic').forEach(c => {
+      c.style.top=(Math.random()*72).toFixed(1)+'%'; c.style.left=(Math.random()*72).toFixed(1)+'%';
+      c.style.width=Math.round(70+Math.random()*170)+'px'; c.style.height=Math.round(70+Math.random()*170)+'px';
+      c.style.animationDuration=(5+Math.random()*9).toFixed(1)+'s'; c.style.animationDelay='-'+(Math.random()*12).toFixed(1)+'s';
+    });
+    const sc = root.querySelector('.scroll');
+    if (sc) { sc.style.scrollbarWidth='none'; sc.style.msOverflowStyle='none'; }
+    if (!document.getElementById('_noscr')) { const s=document.createElement('style'); s.id='_noscr'; s.textContent='.scroll::-webkit-scrollbar{display:none}'; document.head.appendChild(s); }
+  }
+  navigate(url) {
+    const a = this.state.apps;
+    localStorage.setItem('nds_apps', JSON.stringify({ instagram: a.ig, youtube: a.yt, tiktok: a.tt, snapchat: a.sc }));
+    const root = ReactDOM.findDOMNode(this);
+    const el = root && root.querySelector('.content');
+    if (el) el.classList.add('exit-left');
+    setTimeout(() => { window.location.href = url; }, 320);
+  }
+  tog(key) { return 'tog' + (this.state.apps[key] ? ' on' : ''); }
+  togS(key) { return 'tog' + (this.state.sheet[key] ? ' on' : ''); }
+  renderVals() {
+    const theme = this.props.theme ?? 'light';
+    const a = this.state.apps;
+    return {
+      theme,
+      igStyle: { background:'#C13584', color:'#fff' }, ytStyle: { background:'#FF0000', color:'#fff' },
+      ttStyle: { background:'#1a1a1a', color:'#fff' }, scStyle: { background:'#FFCD00', color:'#1a1a1a' },
+      togIg: this.tog('ig'), togYt: this.tog('yt'), togTt: this.tog('tt'), togSc: this.tog('sc'),
+      toggleIg: () => this.setState(s => ({apps:{...s.apps,ig:!s.apps.ig}})),
+      toggleYt: () => this.setState(s => ({apps:{...s.apps,yt:!s.apps.yt}})),
+      toggleTt: () => this.setState(s => ({apps:{...s.apps,tt:!s.apps.tt}})),
+      toggleSc: () => this.setState(s => ({apps:{...s.apps,sc:!s.apps.sc}})),
+      showSheet: this.state.showSheet,
+      openSheet: () => this.setState({ showSheet: true }),
+      closeSheet: () => this.setState({ showSheet: false }),
+      stopProp: (e) => e.stopPropagation(),
+      togMsg: this.togS('msg'), togX: this.togS('x'), togPin: this.togS('pin'), togRed: this.togS('red'),
+      toggleMsg: () => this.setState(s => ({sheet:{...s.sheet,msg:!s.sheet.msg}})),
+      toggleX: () => this.setState(s => ({sheet:{...s.sheet,x:!s.sheet.x}})),
+      togglePin: () => this.setState(s => ({sheet:{...s.sheet,pin:!s.sheet.pin}})),
+      toggleRed: () => this.setState(s => ({sheet:{...s.sheet,red:!s.sheet.red}})),
+      goNext: () => this.navigate('./Onboarding4-ModeLibre.dc.html'),
+    };
+  }
+}
+</script>
+</body>
+</html>

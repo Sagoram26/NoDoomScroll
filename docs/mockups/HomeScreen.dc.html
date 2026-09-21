@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+.light{--bg-base:#F4FAF6;--g1:#F6FBF8;--g2:#EEF7F1;--g3:#E3F1E9;--glass:rgba(255,255,255,0.28);--gborder:rgba(255,255,255,0.6);--ghi:rgba(255,255,255,0.80);--sheen:rgba(255,255,255,0.38);--accent:#5E8C72;--accent2:#4A7560;--accentsoft:#A8C9B5;--tp:#22302A;--ts:#5A6B62;--tt:#8A9890;--blocked:#9A8A7E;--glow:rgba(94,140,114,0.32);--gshadow:0 10px 34px rgba(94,140,114,0.10);--blur:50px;--haloblur:28px;--blobA:rgba(168,201,181,0.5);--blobB:rgba(200,230,212,0.6);--blobC:rgba(255,255,255,0.7);--bgtop:rgba(255,255,255,0.95);--bgbot:rgba(255,255,255,0.50);--bw:1.5px;--glow-border:0 0 8px rgba(255,255,255,0.25);--reflet:inset 0 1px 1.5px rgba(255,255,255,0.60);--clight:rgba(88,178,130,0.52)}
+.dark{--bg-base:#070C09;--g1:#090F0B;--g2:#0C1611;--g3:#101F17;--glass:rgba(46,66,55,0.32);--gborder:rgba(180,224,200,0.55);--ghi:rgba(205,255,224,0.55);--sheen:rgba(200,245,222,0.18);--accent:#9CC4AC;--accent2:#B4D6C2;--accentsoft:#3A5446;--tp:#EAF2ED;--ts:#A7B8AE;--tt:#6E7E75;--blocked:#8A7D72;--glow:rgba(156,200,174,0.88);--gshadow:0 32px 84px rgba(0,0,0,0.66);--blur:58px;--haloblur:50px;--blobA:rgba(64,150,108,0.6);--blobB:rgba(110,190,150,0.42);--blobC:rgba(38,100,74,0.62);--bgtop:rgba(200,230,212,0.65);--bgbot:rgba(156,196,172,0.30);--bw:2px;--glow-border:0 0 12px rgba(200,230,212,0.15);--reflet:inset 0 1px 2px rgba(220,255,230,0.20);--clight:rgba(178,242,208,0.28)}
+.phone{width:412px;height:892px;border-radius:48px;overflow:hidden;position:relative;background:var(--bg-base);box-shadow:0 40px 90px rgba(20,30,25,0.28);font-family:'Nunito Sans',sans-serif;color:var(--tp)}
+.bg{position:absolute;inset:0;z-index:0;background:linear-gradient(160deg,var(--g1),var(--g2) 55%,var(--g3))}
+.blob{position:absolute;border-radius:50%;filter:blur(42px)}
+.blob.a{width:360px;height:360px;left:-110px;top:10px;background:radial-gradient(circle,var(--blobA),transparent 66%);animation:drift1 16s ease-in-out infinite}
+.blob.b{width:320px;height:320px;right:-120px;top:290px;background:radial-gradient(circle,var(--blobB),transparent 68%);animation:drift2 19s ease-in-out infinite}
+.blob.c{width:300px;height:300px;left:30px;bottom:-90px;background:radial-gradient(circle,var(--blobC),transparent 70%);animation:drift1 23s ease-in-out infinite}
+.content{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;padding:0 20px}
+.glass{background:linear-gradient(180deg,var(--sheen),transparent 44%) padding-box,var(--glass) padding-box,linear-gradient(180deg,var(--bgtop),var(--bgbot)) border-box;backdrop-filter:blur(var(--blur)) saturate(200%);-webkit-backdrop-filter:blur(var(--blur)) saturate(200%);border:var(--bw) solid transparent;box-shadow:var(--gshadow),var(--glow-border),var(--reflet),inset 0 1px 0 var(--ghi),inset 0 -14px 32px rgba(255,255,255,0.05)}
+.statusbar{height:46px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;padding:0 4px}
+.time{font-weight:700;font-size:15px;letter-spacing:.3px}
+.sysicons{display:flex;align-items:center;gap:7px;color:var(--tp)}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-top:4px}
+.hello{font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:18px;letter-spacing:-.3px}
+.date{font-size:13px;color:var(--tt);margin-top:2px}
+.navicons{display:flex;gap:10px}
+.iconbtn{width:42px;height:42px;border-radius:999px;display:flex;align-items:center;justify-content:center;color:var(--ts);border:none;cursor:pointer;padding:0}
+.streakwrap{position:relative;display:flex;align-items:center;justify-content:center;margin-top:26px;height:266px;animation:breathe 4s cubic-bezier(.4,0,.6,1) infinite;transition:opacity 1s cubic-bezier(.22,1,.36,1)}
+.streakwrap.hero-hidden{opacity:0}
+.halo{position:absolute;width:384px;height:384px;border-radius:50%;background:radial-gradient(circle,var(--glow),transparent 60%);filter:blur(var(--haloblur));animation:halopulse 4s cubic-bezier(.4,0,.6,1) infinite}
+.streak{position:relative;width:228px;height:228px;border-radius:74px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.streaknum{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:86px;line-height:1;letter-spacing:-3px}
+.streaklabel{font-size:13px;font-weight:600;letter-spacing:.4px;color:var(--ts)}
+.statsrow{display:flex;gap:14px;margin-top:30px}
+.statcard{flex:1;border-radius:26px;padding:20px 18px;display:flex;flex-direction:column;gap:7px}
+.statnum{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:38px;line-height:1;letter-spacing:-1.5px}
+.unit{font-size:23px;font-weight:600;color:var(--ts)}
+.statlabel{font-size:13px;color:var(--ts);line-height:1.35}
+.trendcard{border-radius:26px;padding:18px 20px;margin-top:14px}
+.trendhead{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:14px}
+.trendtitle{font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:17px}
+.trendmeta{font-size:12px;color:var(--tt);letter-spacing:.4px}
+.bars{display:flex;align-items:flex-end;gap:6px;height:46px}
+.bar{flex:1;border-radius:5px 5px 2px 2px;background:linear-gradient(180deg,var(--accent),var(--accentsoft));transform-origin:bottom;transition:transform .85s cubic-bezier(.22,1,.36,1)}
+.bar.grow0{transform:scaleY(.05)}
+.statslink{display:block;text-align:center;margin-top:20px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:14px;color:var(--accent);text-decoration:none;letter-spacing:.2px}
+.spacer{flex:1;min-height:14px}
+.modebtn{border-radius:30px;padding:15px 18px;margin-bottom:8px;display:flex;flex-direction:column;gap:12px;cursor:pointer}
+.modebtn.off{opacity:.6;cursor:default}
+.moderow{display:flex;align-items:center;gap:14px}
+.moonbox{width:46px;height:46px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--accent);background:var(--accentsoft);flex-shrink:0}
+.modetext{flex:1;display:flex;flex-direction:column;gap:3px}
+.modetitle{font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:16px}
+.modesub{font-size:13px;color:var(--ts);display:flex;align-items:center;gap:7px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.chev{color:var(--ts);font-size:22px;font-weight:300}
+.track{height:6px;border-radius:999px;background:var(--accentsoft);overflow:hidden}
+.fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent2));width:60%;transition:width 1.1s cubic-bezier(.22,1,.36,1)}
+.homeind{height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pill{width:122px;height:5px;border-radius:3px;background:var(--tp);opacity:.32}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
+@keyframes halopulse{0%,100%{opacity:.5;transform:scale(.95)}50%{opacity:1;transform:scale(1.1)}}
+@keyframes riseIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes drift1{0%,100%{transform:translate(0,0)}50%{transform:translate(70px,55px)}}
+@keyframes drift2{0%,100%{transform:translate(0,0)}50%{transform:translate(-60px,-45px)}}
+.caustic{position:absolute;border-radius:50%;pointer-events:none;background:radial-gradient(circle,var(--clight),transparent 68%)}
+.caustic.a{width:130px;height:100px;top:12%;left:18%;animation:cf1 7s ease-in-out infinite}
+.caustic.b{width:190px;height:100px;top:32%;right:8%;animation:cf2 9s ease-in-out infinite;animation-delay:-3s}
+.caustic.c{width:100px;height:160px;top:58%;left:38%;animation:cf3 8s ease-in-out infinite;animation-delay:-5s}
+.caustic.d{width:170px;height:110px;top:22%;left:52%;animation:cf1 11s ease-in-out infinite;animation-delay:-2s}
+.caustic.e{width:110px;height:150px;top:72%;right:22%;animation:cf2 10s ease-in-out infinite;animation-delay:-7s}
+@keyframes cf1{0%,100%{transform:translate(0,0) scale(1) rotate(0deg)}33%{transform:translate(22px,-16px) scale(1.18) rotate(14deg)}66%{transform:translate(-14px,22px) scale(.88) rotate(-9deg)}}
+@keyframes cf2{0%,100%{transform:translate(0,0) scale(1)}40%{transform:translate(-20px,14px) scale(1.22) rotate(6deg)}70%{transform:translate(16px,-11px) scale(.84) rotate(-11deg)}}
+@keyframes cf3{0%,100%{transform:translate(0,0) scale(1) rotate(0deg)}50%{transform:translate(12px,24px) scale(1.12) rotate(22deg)}}
+.still .streakwrap,.still .halo,.still .blob,.still .caustic{animation:none}
+</style>
+</helmet>
+<div class="phone {{ themeMod }}"><div class="bg"><div class="blob a"></div><div class="blob b"></div><div class="blob c"></div><div class="caustic a"></div><div class="caustic b"></div><div class="caustic c"></div><div class="caustic d"></div><div class="caustic e"></div></div><div class="content"><div class="statusbar"><span class="time">9:41</span><div class="sysicons"><svg width="18" height="16" viewBox="0 0 18 16" fill="currentColor"><rect x="0" y="11" width="3" height="5" rx="1"></rect><rect x="5" y="8" width="3" height="8" rx="1"></rect><rect x="10" y="5" width="3" height="11" rx="1"></rect><rect x="15" y="2" width="3" height="14" rx="1"></rect></svg><svg width="25" height="14" viewBox="0 0 25 14" fill="none"><rect x="1" y="1.5" width="20" height="11" rx="3.5" stroke="currentColor" stroke-width="1.4"></rect><rect x="3" y="3.5" width="13.5" height="7" rx="2" fill="currentColor"></rect><rect x="22.5" y="4.5" width="2" height="5" rx="1" fill="currentColor"></rect></svg></div></div><div class="topbar" data-rise><div><div class="hello">Bonjour</div><div class="date">mardi 25 juin</div></div><div class="navicons"><button class="iconbtn glass"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="20" x2="6" y2="13"></line><line x1="12" y1="20" x2="12" y2="7"></line><line x1="18" y1="20" x2="18" y2="15"></line></svg></button><button class="iconbtn glass"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3.5" y="3.5" width="7" height="7" rx="2.2"></rect><rect x="13.5" y="3.5" width="7" height="7" rx="2.2"></rect><rect x="3.5" y="13.5" width="7" height="7" rx="2.2"></rect><rect x="13.5" y="13.5" width="7" height="7" rx="2.2"></rect></svg></button><button class="iconbtn glass"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="8" x2="20" y2="8"></line><line x1="4" y1="16" x2="20" y2="16"></line><circle cx="15" cy="8" r="2.6" fill="currentColor" stroke="none"></circle><circle cx="9" cy="16" r="2.6" fill="currentColor" stroke="none"></circle></svg></button></div></div><div class="streakwrap"><div class="halo"></div><div class="streak glass"><div class="streaknum">12</div><div class="streaklabel">jours sans scroll</div></div></div><div class="statsrow" data-rise><div class="statcard glass"><div class="statnum">1<span class="unit">h</span>45</div><div class="statlabel">économisé aujourd'hui</div></div><div class="statcard glass"><div class="statnum">8</div><div class="statlabel">tentatives bloquées</div></div></div><div class="trendcard glass" data-rise><div class="trendhead"><span class="trendtitle">Aujourd'hui</span><span class="trendmeta">tendance calme</span></div><div class="bars"><div class="bar" style="height:35%"></div><div class="bar" style="height:54%"></div><div class="bar" style="height:42%"></div><div class="bar" style="height:68%"></div><div class="bar" style="height:50%"></div><div class="bar" style="height:78%"></div><div class="bar" style="height:46%"></div><div class="bar" style="height:62%"></div><div class="bar" style="height:38%"></div></div></div><a class="statslink" data-rise>Voir les stats →</a><div class="spacer"></div><sc-if value="{{ isDispo }}" hint-placeholder-val="{{ true }}"><div class="modebtn glass" data-rise><div class="moderow"><div class="moonbox">☾</div><div class="modetext"><div class="modetitle">Mode libre</div><div class="modesub"><span class="dot"></span>Disponible</div></div><span class="chev">→</span></div></div></sc-if><sc-if value="{{ isEnCours }}" hint-placeholder-val="{{ false }}"><div class="modebtn glass" data-rise><div class="moderow"><div class="moonbox">☾</div><div class="modetext"><div class="modetitle">Mode libre</div><div class="modesub">12:45 restant</div></div></div><div class="track"><div class="fill"></div></div></div></sc-if><sc-if value="{{ isEpuise }}" hint-placeholder-val="{{ false }}"><div class="modebtn glass off" data-rise><div class="moderow"><div class="moonbox">☾</div><div class="modetext"><div class="modetitle">Mode libre</div><div class="modesub">Prochain créneau : demain 12 h</div></div></div></div></sc-if></div><div class="homeind"><div class="pill"></div></div></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;412px&quot;,&quot;height&quot;:&quot;892px&quot;},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;default&quot;:&quot;light&quot;,&quot;tsType&quot;:&quot;'light'|'dark'&quot;},&quot;modeLibre&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Disponible&quot;,&quot;En cours&quot;,&quot;Épuisé&quot;],&quot;default&quot;:&quot;Disponible&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;reduceMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  componentDidMount() {
+    this._randomizeCaustics();
+    this._choreograph();
+  }
+  _choreograph() {
+    const root = ReactDOM.findDOMNode(this);
+    if (!root) return;
+    if (this.props.reduceMotion) return;
+    root.querySelectorAll('[data-rise]').forEach((el, i) => {
+      el.style.animation = 'riseIn .7s cubic-bezier(.22,1,.36,1) ' + (0.06 + i * 0.09).toFixed(2) + 's both';
+    });
+    const hero = root.querySelector('.streakwrap');
+    if (hero) { hero.classList.add('hero-hidden'); requestAnimationFrame(() => requestAnimationFrame(() => hero.classList.remove('hero-hidden'))); }
+    const bars = root.querySelectorAll('.bar');
+    bars.forEach(b => b.classList.add('grow0'));
+    const fills = root.querySelectorAll('.fill');
+    fills.forEach(f => { f.dataset.w = f.style.width || '60%'; f.style.width = '0px'; });
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      bars.forEach((b, i) => { b.style.transitionDelay = (0.45 + i * 0.05).toFixed(2) + 's'; b.classList.remove('grow0'); });
+      fills.forEach(f => { f.style.transitionDelay = '.55s'; f.style.width = f.dataset.w; });
+    }));
+    const num = root.querySelector('.streaknum');
+    if (num) this._countUp(num, parseInt(num.textContent, 10) || 0, 1100);
+  }
+  _countUp(el, target, dur) {
+    if (!target) return;
+    const start = performance.now();
+    const tick = (now) => {
+      const p = Math.min((now - start) / dur, 1);
+      el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) requestAnimationFrame(tick); else el.textContent = target;
+    };
+    requestAnimationFrame(tick);
+  }
+  _randomizeCaustics() {
+    const root = ReactDOM.findDOMNode(this);
+    if (!root) return;
+    const caustics = root.querySelectorAll('.caustic');
+    caustics.forEach(c => {
+      c.style.top    = (Math.random() * 72).toFixed(1) + '%';
+      c.style.left   = (Math.random() * 72).toFixed(1) + '%';
+      const w = Math.round(70 + Math.random() * 170);
+      const h = Math.round(70 + Math.random() * 170);
+      c.style.width  = w + 'px';
+      c.style.height = h + 'px';
+      c.style.animationDuration = (5 + Math.random() * 9).toFixed(1) + 's';
+      c.style.animationDelay   = '-' + (Math.random() * 12).toFixed(1) + 's';
+    });
+  }
+  renderVals() {
+    const theme = this.props.theme ?? 'light';
+    const m = this.props.modeLibre ?? 'Disponible';
+    const rm = this.props.reduceMotion ?? false;
+    return {
+      themeMod: theme + (rm ? ' still' : ''),
+      isDispo: m === 'Disponible',
+      isEnCours: m === 'En cours',
+      isEpuise: m === 'Épuisé',
+    };
+  }
+}
+</script>
+</body>
+</html>

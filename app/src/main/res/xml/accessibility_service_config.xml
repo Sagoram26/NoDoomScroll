@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accessibilityEventTypes="typeWindowStateChanged|typeWindowContentChanged|typeViewScrolled"
+    android:accessibilityFeedbackType="feedbackGeneric"
+    android:canRetrieveWindowContent="true"
+    android:accessibilityFlags="flagReportViewIds"
+    android:isAccessibilityTool="true"
+    android:description="@string/accessibility_service_description"
+    android:notificationTimeout="100" />
+    <!-- ponytail: no packageNames filter so user-added custom apps also deliver events. dispatch()
+         returns fast for unknown packages. If battery on a busy device becomes an issue, restore the
+         native-only filter and gate custom-app support behind a per-device rebuild. -->

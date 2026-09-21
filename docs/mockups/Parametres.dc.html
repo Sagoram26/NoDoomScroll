@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Nunito+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+.light{--bg-base:#F4FAF6;--g1:#F6FBF8;--g2:#EEF7F1;--g3:#E3F1E9;--glass:rgba(255,255,255,0.28);--ghi:rgba(255,255,255,0.80);--sheen:rgba(255,255,255,0.38);--accent:#5E8C72;--accentsoft:#A8C9B5;--onacc:#FFFFFF;--tp:#22302A;--ts:#5A6B62;--tt:#8A9890;--gshadow:0 10px 34px rgba(94,140,114,0.10);--blur:50px;--blobA:rgba(168,201,181,0.5);--blobB:rgba(200,230,212,0.6);--blobC:rgba(255,255,255,0.7);--bgtop:rgba(255,255,255,0.95);--bgbot:rgba(255,255,255,0.50);--bw:1.5px;--glow-border:0 0 8px rgba(255,255,255,0.25);--reflet:inset 0 1px 1.5px rgba(255,255,255,0.60);--clight:rgba(88,178,130,0.52);--divider:rgba(94,140,114,0.10);--warn:#A0713A;--warnbg:rgba(201,154,91,0.10);--warnborder:rgba(201,154,91,0.28);--lock-bg:rgba(201,154,91,0.10);--lock-color:#A0713A;--lock-border:rgba(201,154,91,0.28);--code-bg:rgba(34,48,42,0.07);--modal-bg:#F4FAF6;--modal-border:rgba(255,255,255,0.85)}
+.dark{--bg-base:#070C09;--g1:#090F0B;--g2:#0C1611;--g3:#101F17;--glass:rgba(46,66,55,0.32);--ghi:rgba(205,255,224,0.55);--sheen:rgba(200,245,222,0.18);--accent:#9CC4AC;--accentsoft:#3A5446;--onacc:#0F1712;--tp:#EAF2ED;--ts:#A7B8AE;--tt:#6E7E75;--gshadow:0 32px 84px rgba(0,0,0,0.66);--blur:58px;--blobA:rgba(64,150,108,0.6);--blobB:rgba(110,190,150,0.42);--blobC:rgba(38,100,74,0.62);--bgtop:rgba(200,230,212,0.65);--bgbot:rgba(156,196,172,0.30);--bw:2px;--glow-border:0 0 12px rgba(200,230,212,0.15);--reflet:inset 0 1px 2px rgba(220,255,230,0.20);--clight:rgba(178,242,208,0.28);--divider:rgba(156,196,172,0.10);--warn:#D4A96A;--warnbg:rgba(212,180,131,0.10);--warnborder:rgba(212,180,131,0.28);--lock-bg:rgba(212,180,131,0.10);--lock-color:#D4A96A;--lock-border:rgba(212,180,131,0.25);--code-bg:rgba(156,196,172,0.10);--modal-bg:#0C1611;--modal-border:rgba(156,196,172,0.22)}
+.phone{width:412px;height:892px;border-radius:48px;overflow:hidden;position:relative;background:var(--bg-base);box-shadow:0 40px 90px rgba(20,30,25,0.28);font-family:'Nunito Sans',sans-serif;color:var(--tp)}
+.bg{position:absolute;inset:0;z-index:0;background:linear-gradient(160deg,var(--g1),var(--g2) 55%,var(--g3))}
+.blob{position:absolute;border-radius:50%;filter:blur(42px)}
+.blob.a{width:360px;height:360px;left:-110px;top:10px;background:radial-gradient(circle,var(--blobA),transparent 66%);animation:drift1 16s ease-in-out infinite}
+.blob.b{width:320px;height:320px;right:-120px;top:290px;background:radial-gradient(circle,var(--blobB),transparent 68%);animation:drift2 19s ease-in-out infinite}
+.blob.c{width:300px;height:300px;left:30px;bottom:-90px;background:radial-gradient(circle,var(--blobC),transparent 70%);animation:drift1 23s ease-in-out infinite}
+.caustic{position:absolute;border-radius:50%;pointer-events:none;background:radial-gradient(circle,var(--clight),transparent 68%)}
+.glass{background:linear-gradient(180deg,var(--sheen),transparent 44%) padding-box,var(--glass) padding-box,linear-gradient(180deg,var(--bgtop),var(--bgbot)) border-box;backdrop-filter:blur(var(--blur)) saturate(200%);-webkit-backdrop-filter:blur(var(--blur)) saturate(200%);border:var(--bw) solid transparent;box-shadow:var(--gshadow),var(--glow-border),var(--reflet),inset 0 1px 0 var(--ghi)}
+.content{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;opacity:1;transform:translateX(0);transition:opacity 300ms cubic-bezier(.22,1,.36,1),transform 350ms cubic-bezier(.22,1,.36,1)}
+.content.from-right{opacity:0;transform:translateX(32px)}.content.exit-left{opacity:0;transform:translateX(-32px)}
+.statusbar{height:46px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;padding:0 26px}
+.time{font-weight:700;font-size:15px;letter-spacing:.3px}.sysicons{display:flex;align-items:center;gap:7px;color:var(--tp)}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:0 20px;flex-shrink:0;margin-bottom:4px}
+.backbtn{width:40px;height:40px;border-radius:999px;border:none;background:rgba(94,140,114,0.10);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--tp)}
+.topbartitle{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:18px;letter-spacing:-.4px}
+.scroll{flex:1;overflow-y:auto;padding:0 18px 16px}
+.sec-label{font-size:11px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:var(--ts);padding:0 6px;margin:16px 0 7px}
+.sec-card{border-radius:20px;overflow:hidden}
+.row{display:flex;align-items:center;gap:12px;padding:14px 16px;min-height:52px}
+.row-divider{height:1px;background:var(--divider);margin:0 16px}
+.row-info{flex:1;min-width:0}
+.row-label{font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:14px;letter-spacing:-.1px}
+.row-sub{font-size:12px;color:var(--tt);margin-top:3px;line-height:1.45}
+.row-val{font-size:12px;color:var(--ts);margin-top:3px;line-height:1.4}
+.row-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.row-label-accent{font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:14px;color:var(--accent)}
+.chevron{color:var(--tt);flex-shrink:0}
+.badge-lock{padding:3px 10px;border-radius:999px;font-size:11px;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;letter-spacing:.3px;background:var(--lock-bg);color:var(--lock-color);border:1px solid var(--lock-border);flex-shrink:0;white-space:nowrap}
+.badge-val{font-size:12px;color:var(--ts);text-align:right;max-width:140px;line-height:1.4}
+.toggle{width:48px;height:27px;border-radius:999px;position:relative;cursor:pointer;transition:background 260ms cubic-bezier(.22,1,.36,1);flex-shrink:0;background:var(--accentsoft)}
+.toggle.on{background:var(--accent)}
+.toggle.disabled{opacity:.38;cursor:not-allowed}
+.toggle-thumb{position:absolute;top:3px;left:3px;width:21px;height:21px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,0.22);transition:transform 260ms cubic-bezier(.34,1.56,.64,1)}
+.adb-btn{padding:8px 14px;border-radius:999px;border:none;background:var(--accent);color:var(--onacc);font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.row-muted{font-size:13px;color:var(--tt)}
+.modal-overlay{position:absolute;inset:0;z-index:20;background:rgba(6,12,8,0.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:flex;align-items:flex-end}
+.modal{background:var(--modal-bg);border:1.5px solid var(--modal-border);border-radius:28px 28px 0 0;width:100%;padding:20px 22px 28px;box-shadow:0 -4px 48px rgba(0,0,0,0.28)}
+.modal-handle{width:36px;height:4px;border-radius:2px;background:var(--tt);opacity:.3;margin:0 auto 18px}
+.modal-toprow{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.modal-title{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:17px;letter-spacing:-.3px}
+.modal-close{width:32px;height:32px;border-radius:999px;border:none;background:var(--code-bg);color:var(--tt);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px}
+.step-pill{display:inline-flex;align-items:center;padding:3px 10px;border-radius:999px;background:var(--code-bg);font-size:11px;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;color:var(--accent);letter-spacing:.3px;margin-bottom:10px}
+.step-title{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:16px;letter-spacing:-.3px;margin-bottom:8px}
+.step-body{font-size:13px;color:var(--ts);line-height:1.6;margin-bottom:14px}
+.code-block{background:var(--code-bg);border-radius:12px;padding:12px 14px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--tp);line-height:1.6;margin-bottom:16px;word-break:break-all}
+.copy-hint{font-size:11px;color:var(--tt);text-align:center;margin-bottom:14px}
+.progress-dots{display:flex;gap:6px;justify-content:center;margin-bottom:18px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--accentsoft)}
+.dot.active{background:var(--accent)}
+.modal-btns{display:flex;gap:10px}
+.btn-prev{flex:1;padding:14px;border-radius:999px;border:1.5px solid var(--accentsoft);background:transparent;color:var(--ts);font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:14px;cursor:pointer}
+.btn-next{flex:2;padding:14px;border-radius:999px;border:none;background:var(--accent);color:var(--onacc);font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:14px;cursor:pointer}
+.uninstall-steps{margin:12px 0 18px;display:flex;flex-direction:column;gap:10px}
+.ustep{display:flex;align-items:flex-start;gap:12px}
+.ustep-n{width:24px;height:24px;border-radius:50%;background:var(--code-bg);color:var(--accent);font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.ustep-txt{font-size:13px;color:var(--ts);line-height:1.55;flex:1}
+.warn-note{font-size:12px;color:var(--warn);background:var(--warnbg);border:1px solid var(--warnborder);border-radius:12px;padding:10px 14px;line-height:1.5;margin-bottom:16px}
+.homeind{height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pill{width:122px;height:5px;border-radius:3px;background:var(--tp);opacity:.32}
+@keyframes drift1{0%,100%{transform:translate(0,0)}50%{transform:translate(70px,55px)}}
+@keyframes drift2{0%,100%{transform:translate(0,0)}50%{transform:translate(-60px,-45px)}}
+@keyframes riseIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</helmet>
+<div class="phone {{ theme }}"><div class="bg"><div class="blob a"></div><div class="blob b"></div><div class="blob c"></div><div class="caustic a"></div><div class="caustic b"></div><div class="caustic c"></div><div class="caustic d"></div><div class="caustic e"></div></div><div class="content"><div class="statusbar"><span class="time">9:41</span><div class="sysicons"><svg width="18" height="16" viewBox="0 0 18 16" fill="currentColor"><rect x="0" y="11" width="3" height="5" rx="1"></rect><rect x="5" y="8" width="3" height="8" rx="1"></rect><rect x="10" y="5" width="3" height="11" rx="1"></rect><rect x="15" y="2" width="3" height="14" rx="1"></rect></svg><svg width="25" height="14" viewBox="0 0 25 14" fill="none"><rect x="1" y="1.5" width="20" height="11" rx="3.5" stroke="currentColor" stroke-width="1.4"></rect><rect x="3" y="3.5" width="13.5" height="7" rx="2" fill="currentColor"></rect><rect x="22.5" y="4.5" width="2" height="5" rx="1" fill="currentColor"></rect></svg></div></div><div class="topbar"><button class="backbtn" onClick="{{ goBack }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button><div class="topbartitle">Réglages</div><div style="width:40px"></div></div><div class="scroll"><div class="sec-label">Affichage</div><div class="sec-card glass"><div class="row"><div class="row-info"><div class="row-label">Mode niveaux de gris</div><div class="row-sub">Passe l'écran en gris quand tu ouvres une app bloquée.</div></div><div class="row-right"><sc-if value="{{ permOk }}" hint-placeholder-val="{{ true }}"><div class="{{ toggleClass }}" onClick="{{ toggleGray }}"><div class="toggle-thumb" style="{{ thumbStyle }}"></div></div></sc-if><sc-if value="{{ permKo }}" hint-placeholder-val="{{ false }}"><div class="{{ toggleDisabled }}"><div class="toggle-thumb"></div></div><button class="adb-btn" onClick="{{ openAdb }}">Activer</button></sc-if></div></div></div><div class="sec-label">Configuration</div><div class="sec-card glass"><div class="row"><div class="row-info"><div class="row-label">Mode libre</div><div class="row-val">{{ mlLabel }}</div></div><div class="badge-lock">Verrouillé</div></div><div class="row-divider"></div><div class="row"><div class="row-info"><div class="row-label">Rapport hebdomadaire</div><div class="row-val">{{ rapportLabel }}</div></div><div class="badge-lock">Verrouillé</div></div></div><div class="sec-label">À propos</div><div class="sec-card glass"><div class="row"><div class="row-info"><div class="row-label">Version NoDoomScroll</div></div><span class="row-muted">1.0.0</span></div><div class="row-divider"></div><div class="row"><div class="row-info"><div class="row-label">Données</div><div class="row-sub">100% local · aucune donnée envoyée</div></div></div><div class="row-divider"></div><div class="row" style="cursor:pointer" onClick="{{ openPrivacy }}"><div class="row-info"><div class="row-label-accent">Politique de confidentialité</div></div><svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div></div><div class="sec-label">Désinstallation</div><div class="sec-card glass"><div class="row" style="cursor:pointer" onClick="{{ openUninstall }}"><div class="row-info"><div class="row-label-accent">Comment désinstaller NoDoomScroll ?</div></div><svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div></div></div><div class="homeind"><div class="pill"></div></div></div><sc-if value="{{ adbOpen }}" hint-placeholder-val="{{ false }}"><div class="modal-overlay" onClick="{{ closeAdb }}"><div class="modal" onClick="{{ stopProp }}"><div class="modal-handle"></div><div class="modal-toprow"><div class="modal-title">Configuration ADB</div><button class="modal-close" onClick="{{ closeAdb }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button></div><div class="progress-dots"><div class="{{ dot0 }}"></div><div class="{{ dot1 }}"></div><div class="{{ dot2 }}"></div><div class="{{ dot3 }}"></div></div><div class="step-pill">Étape {{ adbStepNum }} / 4</div><div class="step-title">{{ adbTitle }}</div><div class="step-body">{{ adbBody }}</div><sc-if value="{{ adbHasCode }}" hint-placeholder-val="{{ false }}"><div class="code-block">{{ adbCode }}</div><div class="copy-hint">Appuie longuement pour copier</div></sc-if><div class="modal-btns"><sc-if value="{{ adbHasPrev }}" hint-placeholder-val="{{ false }}"><button class="btn-prev" onClick="{{ adbPrev }}">Précédent</button></sc-if><button class="btn-next" onClick="{{ adbNext }}">{{ adbNextLabel }}</button></div></div></div></sc-if><sc-if value="{{ uninstallOpen }}" hint-placeholder-val="{{ false }}"><div class="modal-overlay" onClick="{{ closeUninstall }}"><div class="modal" onClick="{{ stopProp }}"><div class="modal-handle"></div><div class="modal-toprow"><div class="modal-title">Désinstaller NoDoomScroll</div><button class="modal-close" onClick="{{ closeUninstall }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button></div><div class="warn-note">Une fois désinstallé, tous les blocages seront levés.</div><div class="uninstall-steps"><div class="ustep"><div class="ustep-n">1</div><div class="ustep-txt">Aller dans Paramètres > Apps > NoDoomScroll</div></div><div class="ustep"><div class="ustep-n">2</div><div class="ustep-txt">Appuyer sur « Avancé » > « Administrateur d'appareil »</div></div><div class="ustep"><div class="ustep-n">3</div><div class="ustep-txt">Révoquer l'accès administrateur</div></div><div class="ustep"><div class="ustep-n">4</div><div class="ustep-txt">Revenir en arrière et appuyer sur « Désinstaller »</div></div></div><button class="btn-next" onClick="{{ closeUninstall }}">Compris</button></div></div></sc-if><sc-if value="{{ privacyOpen }}" hint-placeholder-val="{{ false }}"><div class="modal-overlay" onClick="{{ closePrivacy }}"><div class="modal" onClick="{{ stopProp }}"><div class="modal-handle"></div><div class="modal-toprow"><div class="modal-title">Politique de confidentialité</div><button class="modal-close" onClick="{{ closePrivacy }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button></div><div class="step-body">NoDoomScroll ne collecte, ne stocke et n'envoie aucune donnée personnelle à des serveurs externes. Toutes les données (apps bloquées, statistiques, réglages) restent exclusivement sur ton appareil.<br/><br/>NoDoomScroll ne contient aucun tracker, aucune analytique, aucune publicité.<br/><br/>Version 1.0.0 · open source</div><button class="btn-next" onClick="{{ closePrivacy }}">Fermer</button></div></div></sc-if></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: {&quot;width&quot;: &quot;412px&quot;, &quot;height&quot;: &quot;892px&quot;},
+  &quot;theme&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;light&quot;,&quot;dark&quot;], &quot;default&quot;: &quot;light&quot;, &quot;tsType&quot;: &quot;'light'|'dark'&quot;},
+  &quot;permGrayscale&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;granted&quot;,&quot;denied&quot;], &quot;default&quot;: &quot;denied&quot;, &quot;tsType&quot;: &quot;'granted'|'denied'&quot;}
+}">
+class Component extends DCLogic {
+  ADB = [
+    { title: 'Active le mode développeur', body: 'Va dans Paramètres > À propos du téléphone > Numéro de build, et appuie dessus 7 fois de suite.', code: null },
+    { title: 'Active le débogage ADB', body: 'Va dans Paramètres > Options développeur, puis active « Débogage USB ».', code: null },
+    { title: 'Connecte ton téléphone au PC', body: 'Utilise un câble USB. Accepte le pop-up « Autoriser le débogage USB » sur ton téléphone.', code: null },
+    { title: 'Lance cette commande', body: 'Dans un terminal sur ton PC, copie et exécute cette commande :', code: 'adb shell pm grant com.nodoomscroll android.permission.WRITE_SECURE_SETTINGS' },
+  ];
+  state = { grayscaleOn: false, adbOpen: false, adbStep: 0, uninstallOpen: false, privacyOpen: false };
+
+  componentDidMount() {
+    const root = ReactDOM.findDOMNode(this);
+    if (!root) return;
+    const el = root.querySelector('.content');
+    if (el) { el.classList.add('from-right'); requestAnimationFrame(() => requestAnimationFrame(() => el.classList.remove('from-right'))); }
+    root.querySelectorAll('.scroll > *').forEach((it, i) => { it.style.animation = 'riseIn .55s cubic-bezier(.22,1,.36,1) ' + (0.14 + i * 0.06).toFixed(2) + 's both'; });
+    root.querySelectorAll('.caustic').forEach(c => {
+      c.style.top=(Math.random()*72).toFixed(1)+'%'; c.style.left=(Math.random()*72).toFixed(1)+'%';
+      c.style.width=Math.round(70+Math.random()*170)+'px'; c.style.height=Math.round(70+Math.random()*170)+'px';
+      c.style.animationDuration=(5+Math.random()*9).toFixed(1)+'s'; c.style.animationDelay='-'+(Math.random()*12).toFixed(1)+'s';
+    });
+    const sc = root.querySelector('.scroll');
+    if (sc) { sc.style.scrollbarWidth='none'; sc.style.msOverflowStyle='none'; }
+    if (!document.getElementById('_noscr')) { const s=document.createElement('style'); s.id='_noscr'; s.textContent='.scroll::-webkit-scrollbar{display:none}'; document.head.appendChild(s); }
+    try { const v=localStorage.getItem('nds_grayscale'); if(v) this.setState({grayscaleOn: v==='1'}); } catch(e){}
+  }
+
+  navigate(url) {
+    const root = ReactDOM.findDOMNode(this);
+    const el = root && root.querySelector('.content');
+    if (el) el.classList.add('exit-left');
+    setTimeout(() => { window.location.href = url; }, 320);
+  }
+
+  renderVals() {
+    const theme = this.props.theme ?? 'light';
+    const perm  = this.props.permGrayscale ?? 'denied';
+    const { grayscaleOn, adbOpen, adbStep, uninstallOpen, privacyOpen } = this.state;
+
+    const permOk = perm === 'granted';
+    const permKo = perm === 'denied';
+
+    let ml = { duration:'15 min', freq:'1×/jour', plage:'12h–14h', delay:'10 min' };
+    let rapport = { day:'Dimanche', hour:'20h' };
+    try { const d=localStorage.getItem('nds_ml'); if(d) ml=JSON.parse(d); } catch(e){}
+    try { const d=localStorage.getItem('nds_rapport'); if(d) rapport=JSON.parse(d); } catch(e){}
+    const mlLabel = (ml.duration||'15 min') + ' · ' + (ml.freq||'1×/jour') + ' · ' + (ml.plage||'12h–14h') + ' · ' + (ml.delay||'10 min') + ' délai';
+    const rapportLabel = (rapport.day||'Dimanche') + ' ' + (rapport.hour||'20h');
+
+    const step = this.ADB[adbStep] || this.ADB[0];
+    const dotClass = (i) => i === adbStep ? 'dot active' : 'dot';
+
+    return {
+      theme, permOk, permKo,
+      toggleClass: 'toggle' + (grayscaleOn ? ' on' : ''),
+      toggleDisabled: 'toggle disabled',
+      thumbStyle: { transform: (permOk && grayscaleOn) ? 'translateX(21px)' : 'translateX(0px)' },
+      toggleGray: () => {
+        if (!permOk) return;
+        const next = !grayscaleOn;
+        try { localStorage.setItem('nds_grayscale', next ? '1' : '0'); } catch(e){}
+        this.setState({ grayscaleOn: next });
+      },
+      mlLabel, rapportLabel,
+      adbOpen, uninstallOpen, privacyOpen,
+      openAdb:       () => this.setState({ adbOpen: true, adbStep: 0 }),
+      closeAdb:      () => this.setState({ adbOpen: false }),
+      openUninstall: () => this.setState({ uninstallOpen: true }),
+      closeUninstall:() => this.setState({ uninstallOpen: false }),
+      openPrivacy:   () => this.setState({ privacyOpen: true }),
+      closePrivacy:  () => this.setState({ privacyOpen: false }),
+      stopProp:      (e) => e.stopPropagation(),
+      adbStepNum: adbStep + 1,
+      adbTitle: step.title, adbBody: step.body,
+      adbCode: step.code || '',
+      adbHasCode: !!step.code,
+      adbHasPrev: adbStep > 0,
+      adbNextLabel: adbStep < 3 ? 'Suivant' : 'Terminé — relancer l\'app',
+      adbNext: () => {
+        if (adbStep < 3) this.setState({ adbStep: adbStep + 1 });
+        else this.setState({ adbOpen: false });
+      },
+      adbPrev: () => this.setState({ adbStep: adbStep - 1 }),
+      dot0: dotClass(0), dot1: dotClass(1), dot2: dotClass(2), dot3: dotClass(3),
+      goBack: () => this.navigate('./HomeScreen.dc.html'),
+    };
+  }
+}
+</script>
+</body>
+</html>
