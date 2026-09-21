@@ -13,9 +13,3 @@
 .externalNativeBuild
 .cxx
 local.properties
-.kotlin
-.claude
-.serena
-graphify-out
-.thumbnail
-.cgcignore

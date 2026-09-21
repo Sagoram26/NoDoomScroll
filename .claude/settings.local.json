@@ -1,0 +1,12 @@
+{
+  "env": {
+    "ANTHROPIC_BASE_URL": "http://127.0.0.1:8787"
+  },
+  "permissions": {
+    "allow": [
+      "mcp__headroom__headroom_retrieve",
+      "Bash(JAVA_HOME=\"/c/Program Files/Android/Android Studio/jbr\" ./gradlew.bat :app:compileDebugKotlin --console=plain)"
+    ]
+  },
+  "skipAutoPermissionPrompt": true
+}
